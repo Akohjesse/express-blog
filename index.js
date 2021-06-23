@@ -28,6 +28,8 @@ app.get('/posts/new', (req ,res)=>{
 
 app.get('/posts/css/styles.css', (req, res)=>{
     res.sendFile(path.resolve(__dirname, 'public/css/styles.css'));
+});app.get('/post/css/styles.css', (req, res)=>{
+    res.sendFile(path.resolve(__dirname, 'public/css/styles.css'));
 })
 
 app.get('/about.html', (req, res) => {
@@ -51,16 +53,16 @@ app.post('/posts/store', (req,res)=> {
   })
 })
 
-app.get('/post:id', async(req,res)=>{
+app.get('/post/:id', async (req, res) => {
     const post = await Post.findById(req.params.id)
     res.render('post', {
         post
     })
-})
+});
 app.get('/', async (req, res) => {
     const posts = await Post.find({})
     res.render('index', {posts})
 });
-app.listen(5000, ()=>{
-    console.log('App listening on port 5000')
+app.listen(2000, ()=>{
+    console.log('App listening on port 20')
 });
