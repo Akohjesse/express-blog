@@ -1,21 +1,42 @@
-@layout('layouts.app');
+@layout('layouts.app')
 
 @section('content')
-
-<header class="masthead">
-    <div class="overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="page-heading">
-                        <h1>Hi, i'm broke</h1>
-                        <h2>Welcome to my blog</h2>
-                        <span class="subheading">To My Blog</span>
-                    </div>
-                </div>
-            </div>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('img/home-bg.jpg')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Fervent</h1>
+          <span class="subheading">Building interfaces for the next gen users</span>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        @each(post in posts)
+        <div class="post-preview">
+          <a href="post.html">
+            <h2 class="post-title">
+                {{post.title}}
+            </h2>
+          </a>
+        </div>
+        <hr>
+        @endeach
+      <!-- Pager -->
+      <div class="clearfix">
+        <a class="btn btn-primary float-right" href="#">Older Posts →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
 @endsection
