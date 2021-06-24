@@ -34,6 +34,10 @@ app.get('/posts/css/styles.css', (req, res)=>{
     res.sendFile(path.resolve(__dirname, 'public/css/styles.css'));
 })
 
+app.get('/fervent.jpg', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/assets/img/fervent.jpg'))
+})
+
 app.get('/about.html', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'pages/about.html'));
 })
@@ -48,24 +52,20 @@ app.get('/contact.html', (req, res) => {
 app.get('/post.html', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'pages/post.html'));
 })
-    
-app.post('/posts/store', (req,res)=> {
-  Post.create(req.body, (error, post)=> {
-      res.redirect('/')
-  })
-});
-app.post('/posts/store', (req,res)=>{
-    const {image} = req.files;
-    image.mv(path.resolve(__dirname, 'public/posts', image.name, (error) => {
+
+app.post("/posts/store", (req, res) => {
+    const {
+        image
+    } = req.files
+
+    image.mv(path.resolve(__dirname, 'public/posts', image.name), (error) => {
         Post.create({
             ...req.body,
             image: `/posts/${image.name}`
         }, (error, post) => {
             res.redirect('/');
         });
-
-    }))
-
+    })
 });
 app.get('/post/:id', async (req, res) => {
     const post = await Post.findById(req.params.id)
