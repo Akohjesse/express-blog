@@ -41,12 +41,8 @@ app.get('/fervent.jpg', (req, res) => {
 app.get('/about.html', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'pages/about.html'));
 })
-
-app.get('/index.html', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'pages/index.html'));
-})
-app.get('/contact.html', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'pages/contact.html'));
+app.get('/contact', (req, res) => {
+    res.redirect('https://ferventdev.netlify.app/contact');
 })
 
 app.get('/post.html', (req, res) => {
