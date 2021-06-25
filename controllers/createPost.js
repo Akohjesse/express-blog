@@ -3,5 +3,5 @@ module.exports = (req, res) => {
         return res.render("create");
     }
 
-    res.render("create");
+    res.redirect('/auth/login')
 };
