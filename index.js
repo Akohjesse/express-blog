@@ -41,7 +41,6 @@ app.use(fileUpload())
 app.use(engine);
 app.set('views', __dirname + '/views');
 
-app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended: true
 }));
