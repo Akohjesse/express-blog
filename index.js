@@ -1,11 +1,12 @@
 const path = require('path');
 const {config, engine} = require('express-edge');
 const express = require('express');
+const connectMongo = require('connect-mongo');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fileUpload = require("express-fileupload");
+const expressSession = require('express-session')
 const Post = require('./database/models/Post')
-
 
 const createPostController = require('./controllers/createPost')
 const homePageController = require('./controllers/homePage')
@@ -13,8 +14,18 @@ const storePostController = require('./controllers/storePost')
 const getPostController = require('./controllers/getPost')
 const createUserController = require('./controllers/createUser')
 const storeUserController = require('./controllers/storeUser');
+const loginController = require("./controllers/login");
+const loginUserController = require('./controllers/loginUser');
 
 const app = new express();
+app.use(expressSession({
+    secret: 'secret',
+    store: new mongoStore({
+        mongooseConnection: mongoose.connection
+    })
+}));
+const mongoStore = connectMongo(expressSession);
+
 mongoose.connect('mongodb://localhost:27017/node-blog', {useNewUrlParser: true})
 .then(
     ()=> 'You are now connected to mongo!'
@@ -58,8 +69,10 @@ app.get('/post.html', (req, res) => {
 app.post("/posts/store", storePostController);
 app.get('/post/:id', getPostController);
 app.get('/', homePageController);
+app.get('/auth/login', loginController);
 app.get("/auth/register", createUserController);
 app.post("/users/register", storeUserController);
+app.post('/users/login', loginUserController);
 
 app.listen(2000, ()=>{
     console.log('App listening on port 2000')
