@@ -21,20 +21,20 @@ const app = new express();
 
 const port = process.env.PORT || 3000
 
-mongoose.connect('mongodb://localhost:27017/node-blog', {useNewUrlParser: true})
-.then(
-    ()=> 'You are now connected to mongo!'
-)
+// mongoose.connect('mongodb://localhost:27017/node-blog', {useNewUrlParser: true})
+// .then(
+//     ()=> 'You are now connected to mongo!'
+// )
 .catch(err => console.error('something went wrong'))
 
 
-app.use(expressSession({
-    secret: 'secret',
-    store: MongoStore.create({
-        mongoUrl: 'mongodb://localhost:27017/node-blog' ,
-        dbName: 'node-blog'
-    }) 
-}));
+// app.use(expressSession({
+//     secret: 'secret',
+//     store: MongoStore.create({
+//         mongoUrl: 'mongodb://localhost:27017/node-blog' ,
+//         dbName: 'node-blog'
+//     }) 
+// }));
 
 
 app.use(express.static('public'));
