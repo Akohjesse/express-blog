@@ -37,20 +37,21 @@ var loginController = require("./controllers/login");
 var loginUserController = require('./controllers/loginUser');
 
 var app = new express();
-var port = process.env.PORT || 3000 // mongoose.connect('mongodb://localhost:27017/node-blog', {useNewUrlParser: true})
-// .then(
-//     ()=> 'You are now connected to mongo!'
-// )
-["catch"](function (err) {
+var port = process.env.PORT || 3000;
+mongoose.connect('mongodb+srv://admin_fervent:ferventdev@fervent.seg2g.mongodb.net/node-app', {
+  useNewUrlParser: true
+}).then(function () {
+  return 'You are now connected to mongo!';
+})["catch"](function (err) {
   return console.error('something went wrong');
-}); // app.use(expressSession({
-//     secret: 'secret',
-//     store: MongoStore.create({
-//         mongoUrl: 'mongodb://localhost:27017/node-blog' ,
-//         dbName: 'node-blog'
-//     }) 
-// }));
-
+});
+app.use(expressSession({
+  secret: 'secret',
+  store: MongoStore.create({
+    mongoUrl: 'mongodb+srv://admin_fervent:ferventdev@fervent.seg2g.mongodb.net/node-app',
+    dbName: 'node-app'
+  })
+}));
 app.use(express["static"]('public'));
 app.use(fileUpload());
 app.use(engine);
@@ -85,4 +86,6 @@ app.get('/auth/login', loginController);
 app.get("/auth/register", createUserController);
 app.post("/users/register", storeUserController);
 app.post('/users/login', loginUserController);
-app.listen(port);
+app.listen(port, function () {
+  console.log("App listening on Port ".concat(port));
+});

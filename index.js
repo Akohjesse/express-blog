@@ -21,20 +21,20 @@ const app = new express();
 
 const port = process.env.PORT || 3000
 
-// mongoose.connect('mongodb://localhost:27017/node-blog', {useNewUrlParser: true})
-// .then(
-//     ()=> 'You are now connected to mongo!'
-// )
+mongoose.connect('mongodb+srv://admin_fervent:ferventdev@fervent.seg2g.mongodb.net/node-app', {useNewUrlParser: true})
+.then(
+    ()=> 'You are now connected to mongo!'
+)
 .catch(err => console.error('something went wrong'))
 
 
-// app.use(expressSession({
-//     secret: 'secret',
-//     store: MongoStore.create({
-//         mongoUrl: 'mongodb://localhost:27017/node-blog' ,
-//         dbName: 'node-blog'
-//     }) 
-// }));
+app.use(expressSession({
+    secret: 'secret',
+    store: MongoStore.create({
+        mongoUrl: 'mongodb+srv://admin_fervent:ferventdev@fervent.seg2g.mongodb.net/node-app' ,
+        dbName: 'node-app'
+    }) 
+}));
 
 
 app.use(express.static('public'));
@@ -75,4 +75,7 @@ app.get('/auth/login', loginController);
 app.get("/auth/register", createUserController);
 app.post("/users/register", storeUserController);
 app.post('/users/login', loginUserController);
-app.listen(port);
+app.listen(port, ()=>{
+    console.log(`App listening on Port ${port}`)
+    
+});
