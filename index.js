@@ -19,6 +19,8 @@ const loginUserController = require('./controllers/loginUser');
 
 const app = new express();
 
+const port = process.env.PORT || 3338;
+
 mongoose.connect('mongodb://localhost:27017/node-blog', {useNewUrlParser: true})
 .then(
     ()=> 'You are now connected to mongo!'
@@ -73,6 +75,4 @@ app.get('/auth/login', loginController);
 app.get("/auth/register", createUserController);
 app.post("/users/register", storeUserController);
 app.post('/users/login', loginUserController);
-app.listen(2000, ()=>{
-    console.log('App listening on port 2000')
-});
+app.listen(port);
