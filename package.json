@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "blog"
