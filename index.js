@@ -19,7 +19,7 @@ const loginUserController = require('./controllers/loginUser');
 
 const app = new express();
 
-const port = process.env.PORT || 3338;
+const port = process.env.PORT || 3000
 
 mongoose.connect('mongodb://localhost:27017/node-blog', {useNewUrlParser: true})
 .then(
