@@ -20,8 +20,6 @@ var MongoStore = require('connect-mongo');
 
 var expressSession = require('express-session');
 
-var connectFlash = require("connect-flash");
-
 var Post = require('./database/models/Post');
 
 var auth = require("./middleware/auth");

@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const fileUpload = require("express-fileupload");
 const MongoStore = require('connect-mongo');
 const expressSession = require('express-session')
-const connectFlash = require("connect-flash");
 const Post = require('./database/models/Post')
 const auth = require("./middleware/auth");
 const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated')
