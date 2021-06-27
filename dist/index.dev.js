@@ -44,7 +44,7 @@ var loginController = require("./controllers/login");
 
 var loginUserController = require('./controllers/loginUser');
 
-var logoutController = require("./controllers/logout");
+var logoutController = require("./controllers/logOut");
 
 var app = new express();
 var port = process.env.PORT || 3000;

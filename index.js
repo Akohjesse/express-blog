@@ -20,7 +20,7 @@ const createUserController = require('./controllers/createUser')
 const storeUserController = require('./controllers/storeUser');
 const loginController = require("./controllers/login");
 const loginUserController = require('./controllers/loginUser');
-const logoutController = require("./controllers/logout");
+const logoutController = require("./controllers/logOut");
 
 const app = new express();
 
