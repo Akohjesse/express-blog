@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
-  },  
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Akohjesse/express-blog.git"
@@ -15,15 +15,15 @@
     "blog"
   ],
   "engines": {
-      "node": "16.2.0",
-      "npm": "7.13.0"
+    "node": "16.2.0",
+    "npm": "7.13.0"
   },
- 
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
     "connect-mongo": "^4.4.1",
     "express": "^4.17.1",
     "express-edge": "^2.0.2",

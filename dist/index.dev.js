@@ -8,6 +8,8 @@ var _require = require('express-edge'),
 
 var express = require('express');
 
+var edge = require("edge.js");
+
 var mongoose = require('mongoose');
 
 var bodyParser = require('body-parser');
@@ -18,7 +20,13 @@ var MongoStore = require('connect-mongo');
 
 var expressSession = require('express-session');
 
+var connectFlash = require("connect-flash");
+
 var Post = require('./database/models/Post');
+
+var auth = require("./middleware/auth");
+
+var redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
 
 var createPostController = require('./controllers/createPost');
 
@@ -35,6 +43,8 @@ var storeUserController = require('./controllers/storeUser');
 var loginController = require("./controllers/login");
 
 var loginUserController = require('./controllers/loginUser');
+
+var logoutController = require("./controllers/logout");
 
 var app = new express();
 var port = process.env.PORT || 3000;
@@ -63,7 +73,7 @@ app.use(bodyParser.urlencoded({
 var storePost = require('./middleware/storePost');
 
 app.use('/posts/store', storePost);
-app.get('/posts/new', createPostController);
+app.get('/posts/new', auth, createPostController);
 app.get(['/posts/css/styles.css', '/post/css/styles.css', '/auth/css/styles.css'], function (req, res) {
   res.sendFile(path.resolve(__dirname, 'public/css/styles.css'));
 });
@@ -79,13 +89,18 @@ app.get('/contact', function (req, res) {
 app.get('/post.html', function (req, res) {
   res.sendFile(path.resolve(__dirname, 'pages/post.html'));
 });
-app.post("/posts/store", storePostController);
+app.post("/posts/store", auth, storePost, storePostController);
 app.get('/post/:id', getPostController);
 app.get('/', homePageController);
-app.get('/auth/login', loginController);
-app.get("/auth/register", createUserController);
-app.post("/users/register", storeUserController);
-app.post('/users/login', loginUserController);
+app.get('/auth/login', redirectIfAuthenticated, loginController);
+app.get("/auth/register", redirectIfAuthenticated, createUserController);
+app.post("/users/register", redirectIfAuthenticated, storeUserController);
+app.post('/users/login', redirectIfAuthenticated, loginUserController);
 app.listen(port, function () {
   console.log("App listening on Port ".concat(port));
+});
+app.get("/auth/logout", redirectIfAuthenticated, logoutController);
+app.use('*', function (req, res, next) {
+  edge.global('auth', req.session.userId);
+  next();
 });
